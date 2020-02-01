@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29521.150
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GymVod.Battleships.Common", "GymVod.Battleships.Common\GymVod.Battleships.Common.csproj", "{0386C239-9531-4785-AE26-B08605A98805}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GymVod.Battleships.GameServer", "GymVod.Battleships.GameServer\GymVod.Battleships.GameServer.csproj", "{33E0F21E-9ECC-412C-9A5B-5F7D95B9A8A8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GymVod.Battleships.Hrac1", "GymVod.Battleships.Hrac1\GymVod.Battleships.Hrac1.csproj", "{66901C9E-8033-40D0-9436-6B791C9EB506}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GymVod.Battleships.HracRnd", "GymVod.Battleships.HracRnd\GymVod.Battleships.HracRnd.csproj", "{98E48E08-4F76-4ACF-A9E8-BA75CF70EA3F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymVod.Battleships.Web", "GymVod.Battleships.Web\GymVod.Battleships.Web.csproj", "{AD5F91C2-94AD-4876-BDED-8F081D01BDD2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymVod.Battleships.Services", "GymVod.Battleships.Services\GymVod.Battleships.Services.csproj", "{8169CCB5-99EF-4AA1-8815-25021219873A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0386C239-9531-4785-AE26-B08605A98805}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0386C239-9531-4785-AE26-B08605A98805}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0386C239-9531-4785-AE26-B08605A98805}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0386C239-9531-4785-AE26-B08605A98805}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33E0F21E-9ECC-412C-9A5B-5F7D95B9A8A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33E0F21E-9ECC-412C-9A5B-5F7D95B9A8A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33E0F21E-9ECC-412C-9A5B-5F7D95B9A8A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33E0F21E-9ECC-412C-9A5B-5F7D95B9A8A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66901C9E-8033-40D0-9436-6B791C9EB506}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66901C9E-8033-40D0-9436-6B791C9EB506}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66901C9E-8033-40D0-9436-6B791C9EB506}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66901C9E-8033-40D0-9436-6B791C9EB506}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98E48E08-4F76-4ACF-A9E8-BA75CF70EA3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98E48E08-4F76-4ACF-A9E8-BA75CF70EA3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98E48E08-4F76-4ACF-A9E8-BA75CF70EA3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98E48E08-4F76-4ACF-A9E8-BA75CF70EA3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD5F91C2-94AD-4876-BDED-8F081D01BDD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD5F91C2-94AD-4876-BDED-8F081D01BDD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD5F91C2-94AD-4876-BDED-8F081D01BDD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD5F91C2-94AD-4876-BDED-8F081D01BDD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8169CCB5-99EF-4AA1-8815-25021219873A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8169CCB5-99EF-4AA1-8815-25021219873A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8169CCB5-99EF-4AA1-8815-25021219873A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8169CCB5-99EF-4AA1-8815-25021219873A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5A5C8E49-7E89-4962-BD86-775E98403C02}
+	EndGlobalSection
+EndGlobal
