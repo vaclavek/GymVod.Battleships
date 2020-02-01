@@ -1,0 +1,54 @@
+﻿@page "/players-new"
+@inherits Components.Pages.PlayersNewComponent
+
+<h1>Přidat hráče</h1>
+
+<EditForm EditContext="_editContext" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+
+    <div class="form-group">
+        <label for="name">Jméno</label>
+        <InputText id="name" class="form-control" placeholder="Jméno" aria-describedby="nameHelp" @bind-Value="Model.Name" />
+        <small id="nameHelp" class="form-text text-muted">Jméno/přezdívka, ze které budu schopný poznat, o koho se jedná pro určení výsledků.</small>
+        <ValidationMessage For="@(() => Model.Name)"></ValidationMessage>
+    </div>
+
+    <div class="form-group">
+        <label for="password">Heslo pro smazání hráče</label>
+        <InputText id="password" type="password" class="form-control" placeholder="Heslo" aria-describedby="passwordHelp" @bind-Value="Model.Password" />
+        <small id="passwordHelp" class="form-text text-muted">Heslo budeš potřebovat, pokud budeš chtít smazat tohoto hráče. Třeba až vylepšíš algoritmus.</small>
+        <ValidationMessage For="@(() => Model.Password)"></ValidationMessage>
+    </div>
+
+    <div class="form-group">
+        <label for="passwordCompare">Opakování hesla pro smazání hráče</label>
+        <InputText id="passwordCompare" type="password" class="form-control" placeholder="Heslo znovu" aria-describedby="passwordCompareHelp" @bind-Value="Model.PasswordCompare" />
+        <small id="passwordCompareHelp" class="form-text text-muted">Zadej heslo znovu, kdybys udělal překlep.</small>
+        <ValidationMessage For="@(() => Model.PasswordCompare)"></ValidationMessage>
+    </div>
+
+    <div class="form-group">
+        <label for="league">Liga</label>
+        <InputSelect id="league" class="form-control" aria-describedby="leagueHelp" @bind-Value="Model.League">
+            <option value="">--- zvolte ---</option>
+            <option value="@(((int)GymVod.Battleships.DataLayer.Model.League.GymVod).ToString())">GymVod</option>
+            <option value="@(((int)GymVod.Battleships.DataLayer.Model.League.HAVIT).ToString())">HAVIT</option>
+        </InputSelect>
+        <small id="leagueHelp" class="form-text text-muted">Zvol stoji ligu. Studenti GymVod si můžou otestovat své algoritmy i proti profesionálním programátorům z HAVITu :)</small>
+        <ValidationMessage For="@(() => Model.League)"></ValidationMessage>
+    </div>
+
+    <div class="form-group">
+        <label for="file">DLL soubor hráče</label>
+        <InputFile id="file" class="form-control-file" aria-describedby="fileHelp" MaxMessageSize="102400" OnChange="HandleFileSelected" />
+        <small id="fileHelp" class="form-text text-muted">Vlož své zkompilované DLL s algoritmem hráče Lodí.</small>
+        @if (!FileInserted)
+        {
+            <div class="invalid-tooltip">
+                Prosím vložte soubor
+            </div>
+        }
+    </div>
+
+    <button type="submit" class="btn btn-primary" disabled="@OkayDisabled">Uložit</button>
+</EditForm>

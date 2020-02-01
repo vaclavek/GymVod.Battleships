@@ -1,6 +1,6 @@
 ﻿using GymVod.Battleships.Common;
 
-namespace GymVod.Lode.Hrac1
+namespace GymVod.Battleships.Hrac1
 {
     public class Game : IBattleshipsGame
     {

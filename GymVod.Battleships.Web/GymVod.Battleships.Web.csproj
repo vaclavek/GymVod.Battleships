@@ -5,17 +5,31 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\**" />
+    <Compile Remove="Upload\**" />
+    <Content Remove="Data\**" />
+    <Content Remove="Upload\**" />
+    <EmbeddedResource Remove="Data\**" />
+    <EmbeddedResource Remove="Upload\**" />
+    <None Remove="Data\**" />
+    <None Remove="Upload\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BlazorInputFile" Version="0.1.0-preview-00002" />
+    <PackageReference Include="Microsoft.AspNetCore.Blazor.DataAnnotations.Validation" Version="3.2.0-preview1.20073.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
+    <PackageReference Include="Sotsera.Blazor.Toaster" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GymVod.Battleships.DataLayer\GymVod.Battleships.DataLayer.csproj" />
     <ProjectReference Include="..\GymVod.Battleships.Services\GymVod.Battleships.Services.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Upload\" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,24 @@
+﻿@page "/players-list"
+@inherits Components.Pages.PlayersListComponent
+
+<h1>Seznam hráčů</h1>
+
+<table class="table table-striped table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Jméno</th>
+            <th scope="col">Liga</th>
+            <th scope="col">Vloženo</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var player in Players)
+        {
+            <tr>
+                <td>@player.Name</td>
+                <td>@player.League</td>
+                <td>@player.Created</td>
+            </tr>
+        }
+    </tbody>
+</table>

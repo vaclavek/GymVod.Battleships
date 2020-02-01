@@ -1,7 +1,7 @@
-﻿using GymVod.Battleships.Common;
-using System;
+﻿using System;
+using GymVod.Battleships.Common;
 
-namespace GymVod.Lode.HracRnd
+namespace GymVod.Battleships.HracRnd
 {
     public class Game : IBattleshipsGame
     {

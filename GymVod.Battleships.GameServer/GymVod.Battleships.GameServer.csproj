@@ -6,11 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Plugins\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\GymVod.Battleships.Common\GymVod.Battleships.Common.csproj" />
+    <ProjectReference Include="..\GymVod.Battleships.DataLayer\GymVod.Battleships.DataLayer.csproj" />
   </ItemGroup>
 
 </Project>

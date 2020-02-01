@@ -1,5 +1,30 @@
 ﻿@page "/"
+@using GymVod.Battleships.Common
 
-<h1>Hello, world!</h1>
+<h1>Pololetní projekt GymVod 2019/2020</h1>
 
-Welcome to your new app.
+<p>
+    tato aplikace slouží jako podpora pro Vaše pololetní projekty.
+</p>
+<p>
+    Vaším cílem je naprogramovat knihovnu, která bude implementovat předepsané rozhraní na známou hru <strong>lodě</strong>.
+</p>
+<p>
+    Rozhraní má tři metody:
+    <ul>
+        <li>
+            <strong>@nameof(IBattleshipsGame.NewGame)</strong> - herní engine zavolá tuto metodu při začátku nové hry.
+            Vaším úkolem je rozmístění lodí, inicializace polí apod. Metoda je zavolána s argumentem typu @nameof(GameSettings), 
+            kde je určena velikost hracího pole a lodě, které máte rozmístit.
+        </li>
+        <li>
+            <strong>@nameof(IBattleshipsGame.GetNextShotPosition)</strong> - metoda je zavolána v každém kole. 
+            Vaším úkolem je určit umístění, kam chcete provést další střelu. Metoda vrací datový typ @nameof(Position) s umístěním střely.
+        </li>
+        <li>
+            <strong>@nameof(IBattleshipsGame.ShotInformation)</strong> - metodu zavolá herní engine, aby informoval Vaši implementaci, 
+            zda jste svým výstřelem zasáhli/potopili nepřátelskou loď.
+        </li>
+    </ul>
+</p>
+
