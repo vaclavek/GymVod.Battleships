@@ -1,9 +1,9 @@
-﻿using GymVod.Battleships.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using GymVod.Battleships.Common;
 
 namespace GymVod.Battleships.GameServer
 {
@@ -35,7 +35,7 @@ namespace GymVod.Battleships.GameServer
 
             var settings = new GameSettings(15, 15, new ShipType[]
             {
-                ShipType.BitevniLod
+                ShipType.Battleship
             });
             var games = new List<Game>();
             foreach (var competitor1 in competitors)
@@ -54,32 +54,11 @@ namespace GymVod.Battleships.GameServer
                 }
             }
 
-            foreach (var game in games)
-            {
-                game.Position1 = game.Player1.NewGame(game.GameSettings);
-                game.Position2 = game.Player2.NewGame(game.GameSettings);
-
-                if (!ValidateUmisteni(game.Position1))
-                {
-                    game.Player2Won = true;
-                }
-                if (!ValidateUmisteni(game.Position2))
-                {
-                    game.Player1Won = true;
-                }
-
-                for (int i = 1; i < 256; i++)
-                {
-                    var shot = game.Player1.GetNextShotPosition();
-                }
-            }
 
 
         }
 
-        static bool ValidateUmisteni(ShipPosition[] umisteni)
-        {
-            return true;
-        }
+
+
     }
 }

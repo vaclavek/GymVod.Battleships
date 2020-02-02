@@ -2,14 +2,10 @@
 {
     public enum ShipType
     {
-        LetadlovaLod,
-        BitevniLod,
-        Kriznik,
-        Pomorka,
-        Torpedoborec,
-        TezkyKriznik,
-        Katamaran,
-        Hydroplan,
-        // http://lada.chytrackova.sweb.cz/hry/lode.htm
+        Submarine = 1,
+        Destroyer = 2,
+        Cruiser = 3,
+        Battleship = 4,
+        Carrier = 5,
     }
 }

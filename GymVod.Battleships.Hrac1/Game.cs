@@ -8,7 +8,7 @@ namespace GymVod.Battleships.Hrac1
         {
             return new ShipPosition[]
             {
-                new ShipPosition(ShipType.BitevniLod, new Position(0,0), Orientation.Right)
+                new ShipPosition(ShipType.Battleship, new Position(0,0), Orientation.Right)
             };
         }
 
@@ -17,7 +17,7 @@ namespace GymVod.Battleships.Hrac1
             return new Position(0, 0);
         }
 
-        public void ShotInformation(Position souradnice, bool zasah, bool potopena)
+        public void ShotResult(ShotResult shotResult)
         {
         }
     }

@@ -15,6 +15,6 @@
         /// <summary>
         /// Informace o zásahu po výstřelu
         /// </summary>
-        void ShotInformation(Position position, bool hit, bool shipSunken);
+        void ShotResult(ShotResult shotResult);
     }
 }

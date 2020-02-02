@@ -3,14 +3,14 @@
     public class ShipPosition
     {
         public ShipType ShipType { get; }
-        public Position Souradnice { get; }
-        public Orientation Orientace { get; }
+        public Position Position { get; }
+        public Orientation Orientation { get; }
 
-        public ShipPosition(ShipType typLode, Position souradnice, Orientation orientace)
+        public ShipPosition(ShipType shipType, Position position, Orientation orientation)
         {
-            ShipType = typLode;
-            Souradnice = souradnice;
-            Orientace = orientace;
+            ShipType = shipType;
+            Position = position;
+            Orientation = orientation;
         }
     }
 }
