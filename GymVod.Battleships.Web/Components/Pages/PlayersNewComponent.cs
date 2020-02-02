@@ -1,7 +1,5 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using BlazorInputFile;
 using GymVod.Battleships.DataLayer.Model;
@@ -24,7 +22,7 @@ namespace GymVod.Battleships.Web.Components.Pages
         public IPlayerService PlayerService { get; set; }
 
         [Inject]
-        public IPluginTester PluginTester { get; set; }
+        public IPluginLoader PluginTester { get; set; }
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -62,24 +60,24 @@ namespace GymVod.Battleships.Web.Components.Pages
 
         public async Task HandleValidSubmit()
         {
-            byte[] fileData;
-            using (var ms = new MemoryStream())
+            await FileUploadService.UploadAsync(file, Model.FileGuid);
+
+            var plugin = PluginTester.LoadPlugin(Model.FileGuid);
+            if (plugin == null)
             {
-                await file.Data.CopyToAsync(ms);
-                fileData = ms.ToArray();
+                Toaster.Error("Vložený soubor není platná knihovna.");
+                return;
             }
 
             try
             {
-                PluginTester.TestImplementation(Assembly.Load(fileData));
+                PluginTester.TestImplementation(plugin);
             }
             catch (Exception e)
             {
                 Toaster.Error(e.Message, "Chyba implementace");
                 return;
             }
-
-            await FileUploadService.UploadAsync(file, Model.FileGuid);
 
             await PlayerService.InsertNewPlayerAsync(new PlayerVM
             {
@@ -90,7 +88,7 @@ namespace GymVod.Battleships.Web.Components.Pages
             });
 
             Toaster.Info("Nový hráč vložen.");
-            NavigationManager.NavigateTo("/players-list");
+            NavigationManager.NavigateTo("/players");
         }
 
         private void EditContext_OnFieldChanged(object sender, FieldChangedEventArgs e)

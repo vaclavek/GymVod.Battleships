@@ -1,11 +1,12 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using GymVod.Battleships.Common;
 
 namespace GymVod.Battleships.Services.Players
 {
-    public class PluginTester : IPluginTester
+    public class PluginLoader : IPluginLoader
     {
         public bool TestImplementation(Assembly assembly)
         {
@@ -15,7 +16,27 @@ namespace GymVod.Battleships.Services.Players
                 throw new Exception("Knihovna musí mít právě jednu třídu, která implementuje " + nameof(IBattleshipsGame));
             }
 
-            return CanCreateInstance(implementationType);
+            return TryCreateInstance(implementationType) != null;
+        }
+
+        public Assembly LoadPlugin(Guid fileGuid)
+        {
+            var path = Path.Combine("Upload", $"{fileGuid}.dll");
+            try
+            {
+                return Assembly.LoadFrom(path);
+            }
+            catch
+            {
+                // swallow exception
+                return null;
+            }
+        }
+
+        public IBattleshipsGame GetInstance(Assembly assembly)
+        {
+            var type = GetImplementationType(assembly);
+            return TryCreateInstance(type);
         }
 
         private Type GetImplementationType(Assembly assembly)
@@ -30,7 +51,7 @@ namespace GymVod.Battleships.Services.Players
             return null;
         }
 
-        private bool CanCreateInstance(Type type)
+        private IBattleshipsGame TryCreateInstance(Type type)
         {
             IBattleshipsGame game;
             try
@@ -49,7 +70,7 @@ namespace GymVod.Battleships.Services.Players
                 throw new Exception("Nepodařilo se použít třídu jako rozhraní");
             }
 
-            return true;
+            return game;
         }
     }
 }

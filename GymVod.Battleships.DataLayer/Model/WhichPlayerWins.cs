@@ -1,4 +1,4 @@
-﻿namespace GymVod.Battleships.Services.GameServer
+﻿namespace GymVod.Battleships.DataLayer
 {
     public enum WhichPlayerWins
     {

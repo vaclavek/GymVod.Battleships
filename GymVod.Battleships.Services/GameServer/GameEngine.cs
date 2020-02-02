@@ -1,9 +1,10 @@
 ﻿using System;
 using GymVod.Battleships.Common;
+using GymVod.Battleships.DataLayer;
 
 namespace GymVod.Battleships.Services.GameServer
 {
-    public class GameEngine : IGameEngine
+    public class GameEngine
     {
         private readonly Game game;
         private readonly Gameboard gameboard1;
@@ -18,32 +19,53 @@ namespace GymVod.Battleships.Services.GameServer
 
         public void InitGame()
         {
+            ShipPosition[] shipPositions;
             try
             {
-                gameboard1.PlaceShips(game.Player1.NewGame(game.GameSettings));
+                shipPositions = game.Player1.NewGame(game.GameSettings);
+            }
+            catch (Exception e)
+            {
+                game.WhichPlayerWins = WhichPlayerWins.Player2;
+                game.ErrorMessage = $"V metodě {nameof(IBattleshipsGame.NewGame)} vznikla neošetřená výjimka: {e.Message}";
+                return;
+            }
+
+            try
+            {
+                gameboard1.PlaceShips(shipPositions);
             }
             catch (GameOverException e)
             {
                 game.WhichPlayerWins = WhichPlayerWins.Player2;
-                game.EndMessage = e.Message;
+                game.ErrorMessage = e.Message;
                 return;
             }
 
             try
             {
-                gameboard2.PlaceShips(game.Player2.NewGame(game.GameSettings));
+                shipPositions = game.Player2.NewGame(game.GameSettings);
+            }
+            catch (Exception e)
+            {
+                game.WhichPlayerWins = WhichPlayerWins.Player1;
+                game.ErrorMessage = $"V metodě {nameof(IBattleshipsGame.NewGame)} vznikla neošetřená výjimka: {e.Message}";
+                return;
+            }
+
+            try
+            {
+                gameboard2.PlaceShips(shipPositions);
             }
             catch (GameOverException e)
             {
                 game.WhichPlayerWins = WhichPlayerWins.Player1;
-                game.EndMessage = e.Message;
+                game.ErrorMessage = e.Message;
                 return;
             }
-
-            PlayGame();
         }
 
-        private void PlayGame()
+        public void PlayGame()
         {
             // dvojnásobná rezerva pro "náhodné střelce"
             var roundsCount = game.GameSettings.BoardWidth * game.GameSettings.BoardHeight * 2;
@@ -79,7 +101,7 @@ namespace GymVod.Battleships.Services.GameServer
             catch (Exception e)
             {
                 game.WhichPlayerWins = WhichPlayerWins.Player2;
-                game.EndMessage = $"V metodě {nameof(IBattleshipsGame.GetNextShotPosition)} vznikla neošetřená výjimka: {e.Message}";
+                game.ErrorMessage = $"V metodě {nameof(IBattleshipsGame.GetNextShotPosition)} vznikla neošetřená výjimka: {e.Message}";
                 return;
             }
 
@@ -91,7 +113,7 @@ namespace GymVod.Battleships.Services.GameServer
             catch (GameOverException e)
             {
                 game.WhichPlayerWins = WhichPlayerWins.Player2;
-                game.EndMessage = e.Message;
+                game.ErrorMessage = e.Message;
                 return;
             }
 
@@ -102,7 +124,7 @@ namespace GymVod.Battleships.Services.GameServer
             catch (Exception e)
             {
                 game.WhichPlayerWins = WhichPlayerWins.Player2;
-                game.EndMessage = $"V metodě {nameof(IBattleshipsGame.ShotResult)} vznikla neošetřená výjimka: {e.Message}";
+                game.ErrorMessage = $"V metodě {nameof(IBattleshipsGame.ShotResult)} vznikla neošetřená výjimka: {e.Message}";
                 return;
             }
 
@@ -115,7 +137,7 @@ namespace GymVod.Battleships.Services.GameServer
                 catch (Exception e)
                 {
                     game.WhichPlayerWins = WhichPlayerWins.Player1;
-                    game.EndMessage = $"V metodě {nameof(IBattleshipsGame.GetNextShotPosition)} vznikla neošetřená výjimka: {e.Message}";
+                    game.ErrorMessage = $"V metodě {nameof(IBattleshipsGame.GetNextShotPosition)} vznikla neošetřená výjimka: {e.Message}";
                     return;
                 }
 
@@ -126,7 +148,7 @@ namespace GymVod.Battleships.Services.GameServer
                 catch (GameOverException e)
                 {
                     game.WhichPlayerWins = WhichPlayerWins.Player1;
-                    game.EndMessage = e.Message;
+                    game.ErrorMessage = e.Message;
                     return;
                 }
 
@@ -137,7 +159,7 @@ namespace GymVod.Battleships.Services.GameServer
                 catch (Exception e)
                 {
                     game.WhichPlayerWins = WhichPlayerWins.Player1;
-                    game.EndMessage = $"V metodě {nameof(IBattleshipsGame.ShotResult)} vznikla neošetřená výjimka: {e.Message}";
+                    game.ErrorMessage = $"V metodě {nameof(IBattleshipsGame.ShotResult)} vznikla neošetřená výjimka: {e.Message}";
                     return;
                 }
 

@@ -1,5 +1,21 @@
-﻿<h3>TournamentNew</h3>
+﻿@page "/tournament-new"
+@inherits TournamentNewComponent
 
-@code {
+<h3>Nový turnaj</h3>
 
-}
+<EditForm Model="Model" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+
+    <div class="form-group">
+        <label for="league">Liga</label>
+        <InputSelect id="league" class="form-control" aria-describedby="leagueHelp" @bind-Value="Model.League">
+            <option value="">--- zvolte ---</option>
+            <option value="@(((int)GymVod.Battleships.DataLayer.Model.League.GymVod).ToString())">GymVod</option>
+            <option value="@(((int)GymVod.Battleships.DataLayer.Model.League.HAVIT).ToString())">HAVIT</option>
+        </InputSelect>
+        <small id="leagueHelp" class="form-text text-muted">Zvol ligu, pro kterou chceš spustit turnaj.</small>
+        <ValidationMessage For="@(() => Model.League)"></ValidationMessage>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Spustit nový turnaj</button>
+</EditForm>
