@@ -32,4 +32,8 @@
     <ProjectReference Include="..\GymVod.Battleships.Services\GymVod.Battleships.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\Download\GymVod.Battleships.Common.dll" />
+  </ItemGroup>
+
 </Project>

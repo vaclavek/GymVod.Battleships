@@ -27,7 +27,12 @@ namespace GymVod.Battleships.Services.GameServer
 
                 for (int i = 0; i < (int)ship.ShipType; i++)
                 {
-                    if (x <= 0 || y <= 0 || x >= boardWidth || y >= boardHeight)
+                    if (x == 0 || y == 0 || x == (boardWidth - 1) || y == (boardHeight - 1))
+                    {
+                        throw new GameOverException($"Nelze umístit loď {ship.ShipType} na pozici [{x},{y}], protože loď se nesmí dotýkat okraje herního pole.");
+                    }
+
+                    if (x < 0 || y > 0 || x >= boardWidth || y >= boardHeight)
                     {
                         throw new GameOverException($"Nelze umístit loď {ship.ShipType} na pozici [{x},{y}], protože pozice je mimo hrací pole.");
                     }
@@ -55,7 +60,7 @@ namespace GymVod.Battleships.Services.GameServer
 
         public ShotResult Shoot(Position position)
         {
-            if (position.X < 0 || position.Y < 0 || position.X > boardWidth || position.Y >= boardHeight)
+            if (position.X < 0 || position.Y < 0 || position.X >= boardWidth || position.Y >= boardHeight)
             {
                 throw new GameOverException($"Střela [{position.X}, {position.Y}] je mimo hrací pole.");
             }

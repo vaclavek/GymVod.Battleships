@@ -10,32 +10,53 @@
     Vaším cílem je naprogramovat knihovnu, která bude implementovat předepsané rozhraní na známou hru <strong>lodě</strong>.
 </p>
 <p>
-    Rozhraní má tři metody:
+    Rozhraní si můžete <a href="/Download/GymVod.Battleships.Common.zip">stáhnout zde</a>.
+    Jméno rozhraní je <strong>GymVod.Battleships.Common.@nameof(IBattleshipsGame)</strong> a vypadá následovně:
     <ul>
         <li>
-            <strong>@nameof(IBattleshipsGame.NewGame)</strong> - herní engine zavolá tuto metodu při začátku nové hry.
-            Vaším úkolem je rozmístění lodí, inicializace polí apod. Metoda je zavolána s argumentem typu @nameof(GameSettings),
-            kde je určena velikost hracího pole a lodě, které máte rozmístit.
+            Metodu <strong>@nameof(IBattleshipsGame.NewGame)</strong> zavolá herní engine vždy při začátku nové hry.
+            Účelem je rozmístění lodí, inicializace potřebných polí apod. Metoda je zavolána s argumentem typu @nameof(GameSettings),
+            kde je určena velikost hracího pole a typy lodí, které máte rozmístit.
         </li>
         <li>
-            <strong>@nameof(IBattleshipsGame.GetNextShotPosition)</strong> - metoda je zavolána v každém kole.
-            Vaším úkolem je určit umístění, kam chcete provést další střelu. Metoda vrací datový typ @nameof(Position) s umístěním střely.
+            Metodu <strong>@nameof(IBattleshipsGame.GetNextShotPosition)</strong> engine zavolá na začátku vašeho kola.
+            Vaším úkolem je určit, kam chcete vystřelit. Metoda vrací datový typ @nameof(Position) s umístěním střely (souřadnice X, Y), indexováno od 0.
+            Tzn. [0,0] znamená levý horní roh. <em>Lodě se nesmí dotýkat okraje.</em>
         </li>
         <li>
-            <strong>@nameof(IBattleshipsGame.ShotResult)</strong> - metodu zavolá herní engine, aby informoval Vaši implementaci,
-            zda jste svým výstřelem zasáhli/potopili nepřátelskou loď.
+            Metodu <strong>@nameof(IBattleshipsGame.ShotResult)</strong> zavolá herní engine po vyhodnocení, zda vaše střela zasáhla nepřátelskou loď, a případně, zda ji potopila.
+            Tuto informaci využijete pro určení střelby v dalších kolech.
         </li>
     </ul>
 </p>
 
+<h4>Pravidla hry</h4>
 <p>
-    Pravidla hry:
+    Věřím, že hru všichni znáte, ale pro jistotu pravidla uvádím níže (můžou se drobně lišit od těch, které znáte).
+
     <ul>
-        <li>Loď může být umístěna kdekoli na herním plánu, ale nemůže se dotýkat krajů.</li>
-        <li>V případě, že rozmístění lodí při začátku hry není korektní, hráč automaticky prohrává.</li>
+        <li>Nejdříve oba hráči rozmístí své lodě do herního plánu a oznámí své rozmístění hernímu enginu. 
+            <em>Jak velký je herní plán a kolik jakách lodí máte rozmístit je dáno v argumentu metody.</em></li>
+        <li>Začíná první hráč (v každém turnaji se pořadí střídá, takže nikdo nebude mít výhodu prvního výstřelu) a určí, kam chce vystřelit.</li>
+        <li>Herní engine určí, zda jste zasáhli nepřátelskou loď a v případě, že ano, zkontroluje, zda jste ji potopili.</li>
+        <li>Herní engine oznámí prvnímu hráči, zda zasáhl (a potopil) nepřátelskou loď.</li>
+        <li>Pokud všechny lodě jsou již potopené, první hráč vyhrál a hra končí.</li>
+        <li>V opačném případě hraje druhý hráč, dokud jeden z hráčů nepotopí všechny nepřátelské lodě. 
+            <em>Explicitně upozorňuji na odchylku od běžných pravidel, že po zásahu nepokračuje hráč, který zasáhl, ale následuje druhý hráč.</em>
+        </li>
+    </ul>
+</p>
+
+<h4>Podmínky</h4>
+<p>
+    <ul>
+        <li>Loď může být umístěna kdekoli na herním plánu, ale nesmí se dotýkat krajů.</li>
+        <li>Žádná loď se nesmí dotýkat jiných lodí jinak, než rohem.</li>
+        <li>V případě, že rozmístění lodí při začátku hry není dle pravidel, hráč automaticky prohrává.</li>
         <li>V případě, že střela je mimo hranice hracího pole, hráč automaticky prohrává.</li>
         <li>Pokud ve Vaší metodě vznikne neošetřená výjimka, hráč automaticky prohrává.</li>
-        <li>Všechny Vaše metody by měly doběhnout do 1s. Momentálně na to není implementována kontrola, ale pokud s tím bude problém, hráč automaticky prohraje, pokud metoda poběží příliš dlouho.</li>
+        <li>Všechny Vaše metody by měly doběhnout do 1s. 
+            Momentálně na to není implementována žádná kontrola, ale pokud s tím bude problém, hráč automaticky prohraje, pokud vaše metoda poběží příliš dlouho.</li>
     </ul>
 </p>
 

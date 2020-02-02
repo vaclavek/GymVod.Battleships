@@ -40,6 +40,7 @@ namespace GymVod.Battleships.Web
 
             // repositories
             services.AddScoped<IPlayerRepository, PlayerRepository>();
+            services.AddScoped<ITournamentRepository, TournamentRepository>();
 
             // services
             services.AddScoped<IFileUploadService, FileUploadService>();
