@@ -2,6 +2,7 @@ using GymVod.Battleships.DataLayer;
 using GymVod.Battleships.DataLayer.Repositories;
 using GymVod.Battleships.DataLayer.UnitOfWorks;
 using GymVod.Battleships.Services;
+using GymVod.Battleships.Services.GameServer;
 using GymVod.Battleships.Services.Players;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -44,6 +45,7 @@ namespace GymVod.Battleships.Web
             services.AddScoped<IFileUploadService, FileUploadService>();
             services.AddScoped<IPlayerService, PlayerService>();
             services.AddScoped<IPluginTester, PluginTester>();
+            services.AddScoped<IGameEngine, GameEngine>();
 
             // Add the library to the DI system
             services.AddToaster(config =>

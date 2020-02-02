@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GymVod.Battleships.GameServer
+namespace GymVod.Battleships.Services.GameServer
 {
     public class GameOverException : ApplicationException
     {

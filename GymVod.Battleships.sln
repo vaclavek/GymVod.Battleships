@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.29521.150
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GymVod.Battleships.Common", "GymVod.Battleships.Common\GymVod.Battleships.Common.csproj", "{0386C239-9531-4785-AE26-B08605A98805}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GymVod.Battleships.GameServer", "GymVod.Battleships.GameServer\GymVod.Battleships.GameServer.csproj", "{33E0F21E-9ECC-412C-9A5B-5F7D95B9A8A8}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GymVod.Battleships.Hrac1", "GymVod.Battleships.Hrac1\GymVod.Battleships.Hrac1.csproj", "{66901C9E-8033-40D0-9436-6B791C9EB506}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GymVod.Battleships.HracRnd", "GymVod.Battleships.HracRnd\GymVod.Battleships.HracRnd.csproj", "{98E48E08-4F76-4ACF-A9E8-BA75CF70EA3F}"
@@ -27,10 +25,6 @@ Global
 		{0386C239-9531-4785-AE26-B08605A98805}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0386C239-9531-4785-AE26-B08605A98805}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0386C239-9531-4785-AE26-B08605A98805}.Release|Any CPU.Build.0 = Release|Any CPU
-		{33E0F21E-9ECC-412C-9A5B-5F7D95B9A8A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{33E0F21E-9ECC-412C-9A5B-5F7D95B9A8A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{33E0F21E-9ECC-412C-9A5B-5F7D95B9A8A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{33E0F21E-9ECC-412C-9A5B-5F7D95B9A8A8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{66901C9E-8033-40D0-9436-6B791C9EB506}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{66901C9E-8033-40D0-9436-6B791C9EB506}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66901C9E-8033-40D0-9436-6B791C9EB506}.Release|Any CPU.ActiveCfg = Release|Any CPU

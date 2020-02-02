@@ -1,9 +1,9 @@
 ﻿using System;
 using GymVod.Battleships.Common;
 
-namespace GymVod.Battleships.GameServer
+namespace GymVod.Battleships.Services.GameServer
 {
-    public class GameEngine
+    public class GameEngine : IGameEngine
     {
         private readonly Game game;
         private readonly Gameboard gameboard1;

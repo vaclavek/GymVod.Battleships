@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using GymVod.Battleships.DataLayer.Repositories;
 
-namespace GymVod.Battleships.GameServer
+namespace GymVod.Battleships.Services.GameServer
 {
     public class PluginLoader
     {

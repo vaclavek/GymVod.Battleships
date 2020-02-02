@@ -1,6 +1,6 @@
 ﻿using GymVod.Battleships.Common;
 
-namespace GymVod.Battleships.GameServer
+namespace GymVod.Battleships.Services.GameServer
 {
     public class Game
     {
