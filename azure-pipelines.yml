@@ -16,6 +16,8 @@ variables:
 
 steps:
 - task: NuGetToolInstaller@1
+- publish: $(System.DefaultWorkingDirectory)/GymVod.Battleships
+  artifact: GymVod.Battleships
 
 - task: NuGetCommand@2
   inputs:
