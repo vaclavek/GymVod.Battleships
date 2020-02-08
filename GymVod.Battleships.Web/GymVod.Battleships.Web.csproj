@@ -33,7 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\Download\GymVod.Battleships.Common.dll" />
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
 </Project>

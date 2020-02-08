@@ -22,6 +22,7 @@
         </p>
         <p>
             Pro zjednodušení jsou všechny lodě pouze "rovné" o délce 1 - 5, žádná loď není "do L". Každý typ lodě může být zadán vícekrát (typicky menší lodě). 
+            Loď může být umístěna horizontálně i vertikálně. Orientaci určíte nastavením enumu @nameof(Orientation).
             Možné typy lodí jsou:
             <ul>
                 <li><strong>@nameof(ShipType.Submarine)</strong> - loď o délce @((int)ShipType.Submarine)</li>
@@ -30,6 +31,7 @@
                 <li><strong>@nameof(ShipType.Battleship)</strong> - loď o délce @((int)ShipType.Battleship)</li>
                 <li><strong>@nameof(ShipType.Carrier)</strong> - loď o délce @((int)ShipType.Carrier)</li>
             </ul>
+            <img src="/images/battleship-types.png" alt="Battleship types" class="figure-img" />
         </p>
     </li>
     <li>
