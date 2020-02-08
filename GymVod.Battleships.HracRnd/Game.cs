@@ -1,27 +1,37 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using GymVod.Battleships.Common;
 
 namespace GymVod.Battleships.HracRnd
 {
     public class Game : IBattleshipsGame
     {
+        private byte width;
+        private byte height;
+
         public ShipPosition[] NewGame(GameSettings nastaveniHry)
         {
-            var rnd = new Random();
-            var x = (byte)rnd.Next(0, nastaveniHry.BoardWidth);
-            var y = (byte)rnd.Next(0, nastaveniHry.BoardHeight);
+            width = nastaveniHry.BoardWidth;
+            height = nastaveniHry.BoardHeight;
 
-            return new ShipPosition[]
+            var shipPositions = new List<ShipPosition>();
+            byte y = 1;
+            foreach (var shipType in nastaveniHry.ShipTypes.OrderByDescending(x => (int)x))
             {
-                new ShipPosition(ShipType.Battleship, new Position(x, y), Orientation.Right)
-            };
+                var position = new Position(1, y);
+                shipPositions.Add(new ShipPosition(shipType, position, Orientation.Right));
+                y += 2;
+            }
+
+            return shipPositions.ToArray();
         }
 
         public Position GetNextShotPosition()
         {
             var rnd = new Random();
-            var x = (byte)rnd.Next(0, 15);
-            var y = (byte)rnd.Next(0, 15);
+            var x = (byte)rnd.Next(1, width - 1);
+            var y = (byte)rnd.Next(1, height - 1);
 
             return new Position(x, y);
         }
