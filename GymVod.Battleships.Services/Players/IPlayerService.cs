@@ -8,5 +8,6 @@ namespace GymVod.Battleships.Services.Players
     {
         Task<List<PlayerListVM>> GetAllPlayersAsync();
         Task InsertNewPlayerAsync(PlayerVM player);
+        Task DeleteAsync(int playerId, string password);
     }
 }

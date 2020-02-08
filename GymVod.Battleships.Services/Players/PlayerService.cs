@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GymVod.Battleships.DataLayer.Model;
@@ -12,14 +13,17 @@ namespace GymVod.Battleships.Services.Players
     public class PlayerService : IPlayerService
     {
         private readonly IPlayerRepository playerRepository;
+        private readonly IFileService fileService;
         private readonly IUnitOfWork unitOfWork;
         private readonly IHttpContextAccessor httpContextAccessor;
 
         public PlayerService(IPlayerRepository playerRepository,
+            IFileService fileService,
             IUnitOfWork unitOfWork,
             IHttpContextAccessor httpContextAccessor)
         {
             this.playerRepository = playerRepository;
+            this.fileService = fileService;
             this.unitOfWork = unitOfWork;
             this.httpContextAccessor = httpContextAccessor;
         }
@@ -48,6 +52,19 @@ namespace GymVod.Battleships.Services.Players
                 Created = player.Created,
                 IP = ip
             });
+            await unitOfWork.CommitAsync();
+        }
+
+        public async Task DeleteAsync(int playerId, string password)
+        {
+            var player = await playerRepository.GetPlayerAsync(playerId);
+            if (!player.Password.Equals(password))
+            {
+                throw new Exception("Neodpovídá heslo pro smazání.");
+            }
+
+            await fileService.DeleteAsync(player.FileGuid);
+            unitOfWork.AddForDelete(player);
             await unitOfWork.CommitAsync();
         }
 

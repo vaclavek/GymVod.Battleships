@@ -1,3 +1,6 @@
+using Blazorise;
+using Blazorise.Bootstrap;
+using Blazorise.Icons.FontAwesome;
 using GymVod.Battleships.DataLayer;
 using GymVod.Battleships.DataLayer.Repositories;
 using GymVod.Battleships.DataLayer.UnitOfWorks;
@@ -30,6 +33,13 @@ namespace GymVod.Battleships.Web
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
+            services.AddBlazorise(options =>
+             {
+                 options.ChangeTextOnKeyPress = true;
+             }) // from v0.6.0-preview4
+            .AddBootstrapProviders()
+            .AddFontAwesomeIcons();
+
             RegisterDependencyInjectionServices(services);
 
             // Add the library to the DI system
@@ -57,6 +67,10 @@ namespace GymVod.Battleships.Web
             app.UseStaticFiles();
             app.UseRouting();
 
+            app.ApplicationServices
+              .UseBootstrapProviders()
+              .UseFontAwesomeIcons();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapBlazorHub();
@@ -79,7 +93,7 @@ namespace GymVod.Battleships.Web
             services.AddScoped<ITournamentRepository, TournamentRepository>();
 
             // services
-            services.AddScoped<IFileUploadService, FileUploadService>();
+            services.AddScoped<IFileService, FileService>();
             services.AddScoped<IPlayerService, PlayerService>();
             services.AddScoped<IPluginLoader, PluginLoader>();
             services.AddScoped<ITournamentService, TournamentService>();

@@ -19,5 +19,10 @@ namespace GymVod.Battleships.DataLayer.Repositories
         {
             return dbContext.Players.OrderByDescending(x => x.Created).ToListAsync();
         }
+
+        public async Task<Player> GetPlayerAsync(int playerId)
+        {
+            return await dbContext.Players.FindAsync(playerId);
+        }
     }
 }

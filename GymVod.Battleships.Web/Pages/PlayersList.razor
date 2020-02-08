@@ -9,6 +9,7 @@
             <th scope="col">Jméno</th>
             <th scope="col">Liga</th>
             <th scope="col">Vloženo</th>
+            <th scope="col">&nbsp;</th>
         </tr>
     </thead>
     <tbody>
@@ -18,7 +19,35 @@
                 <td>@player.Name</td>
                 <td>@player.League</td>
                 <td>@player.Created</td>
+                <td><button type="button" 
+                            class="btn btn-sm btn-danger" 
+                            data-toggle="modal" 
+                            data-target="#deleteModalLabel"
+                            @onclick="@(() => ShowDeleteModal(player.Id))"><span class="oi oi-trash"></span> Delete</button></td>
             </tr>
         }
     </tbody>
 </table>
+
+<Modal @ref="modalRef">
+    <ModalBackdrop />
+    <ModalContent IsCentered="true">
+        <ModalHeader>
+            <ModalTitle>Smazat soubor?</ModalTitle>
+            <CloseButton Clicked="@HideModal" />
+        </ModalHeader>
+        <ModalBody>
+            <Field>
+                Opravdu chcete trvale smazat soubor?
+            </Field>
+            <Field>
+                <FieldLabel For="deletePassword">Zadejte heslo pro smazání</FieldLabel>
+                <input id="deletePassword" type="password" @bind-value="DeletePassword" class="form-control" />
+            </Field>
+        </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Secondary" Clicked="@HideModal">NE, zavřít</Button>
+            <Button class="btn btn-danger" Clicked="@DeletePlayerAsync">ANO, smazat</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>

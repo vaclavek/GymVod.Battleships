@@ -7,5 +7,6 @@ namespace GymVod.Battleships.DataLayer.Repositories
     public interface IPlayerRepository
     {
         Task<List<Player>> GetAllPlayersAsync();
+        Task<Player> GetPlayerAsync(int playerId);
     }
 }

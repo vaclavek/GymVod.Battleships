@@ -16,7 +16,7 @@ namespace GymVod.Battleships.Web.Components.Pages
     public class PlayersNewComponent : ComponentBase
     {
         [Inject]
-        public IFileUploadService FileUploadService { get; set; }
+        public IFileService FileUploadService { get; set; }
 
         [Inject]
         public IPlayerService PlayerService { get; set; }
