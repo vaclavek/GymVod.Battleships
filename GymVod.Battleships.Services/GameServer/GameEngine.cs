@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using GymVod.Battleships.Common;
 using GymVod.Battleships.DataLayer;
 
@@ -31,6 +33,13 @@ namespace GymVod.Battleships.Services.GameServer
                 return;
             }
 
+            if (!PlacedAllShips(game.GameSettings, shipPositions))
+            {
+                game.WhichPlayerWins = WhichPlayerWins.Player2;
+                game.ErrorMessage = $"Hráč neumístil všechny lodě.";
+                return;
+            }
+
             try
             {
                 gameboard1.PlaceShips(shipPositions);
@@ -50,6 +59,13 @@ namespace GymVod.Battleships.Services.GameServer
             {
                 game.WhichPlayerWins = WhichPlayerWins.Player1;
                 game.ErrorMessage = $"V metodě {nameof(IBattleshipsGame.NewGame)} vznikla neošetřená výjimka: {e.Message}";
+                return;
+            }
+
+            if (!PlacedAllShips(game.GameSettings, shipPositions))
+            {
+                game.WhichPlayerWins = WhichPlayerWins.Player1;
+                game.ErrorMessage = $"Hráč neumístil všechny lodě.";
                 return;
             }
 
@@ -164,6 +180,25 @@ namespace GymVod.Battleships.Services.GameServer
                 }
 
             }
+        }
+
+        private bool PlacedAllShips(GameSettings gameSettings, ShipPosition[] shipPositions)
+        {
+            var tempPositions = new List<ShipPosition>();
+            tempPositions.AddRange(shipPositions);
+
+            foreach (var shipType in gameSettings.ShipTypes)
+            {
+                var position = tempPositions.FirstOrDefault(x => x.ShipType == shipType);
+                if (position == null)
+                {
+                    return false;
+                }
+
+                tempPositions.Remove(position);
+            }
+
+            return true;
         }
     }
 }
