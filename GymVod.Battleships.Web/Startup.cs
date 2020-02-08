@@ -30,23 +30,7 @@ namespace GymVod.Battleships.Web
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
-            // infrastructure
-            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
-            // uow, dbcontext
-            services.AddScoped<MyContext, MyContext>();
-            services.AddScoped<DbContext, MyContext>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-
-            // repositories
-            services.AddScoped<IPlayerRepository, PlayerRepository>();
-            services.AddScoped<ITournamentRepository, TournamentRepository>();
-
-            // services
-            services.AddScoped<IFileUploadService, FileUploadService>();
-            services.AddScoped<IPlayerService, PlayerService>();
-            services.AddScoped<IPluginLoader, Services.Players.PluginLoader>();
-            services.AddScoped<ITournamentService, TournamentService>();
+            RegisterDependencyInjectionServices(services);
 
             // Add the library to the DI system
             services.AddToaster(config =>
@@ -71,7 +55,6 @@ namespace GymVod.Battleships.Web
             }
 
             app.UseStaticFiles();
-
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
@@ -79,6 +62,27 @@ namespace GymVod.Battleships.Web
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
+        }
+
+        private void RegisterDependencyInjectionServices(IServiceCollection services)
+        {
+            // infrastructure
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            // uow, dbcontext
+            services.AddScoped<MyContext, MyContext>();
+            services.AddScoped<DbContext, MyContext>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            // repositories
+            services.AddScoped<IPlayerRepository, PlayerRepository>();
+            services.AddScoped<ITournamentRepository, TournamentRepository>();
+
+            // services
+            services.AddScoped<IFileUploadService, FileUploadService>();
+            services.AddScoped<IPlayerService, PlayerService>();
+            services.AddScoped<IPluginLoader, PluginLoader>();
+            services.AddScoped<ITournamentService, TournamentService>();
         }
     }
 }
