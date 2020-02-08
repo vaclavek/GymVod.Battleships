@@ -12,36 +12,52 @@
 <p>
     Rozhraní si můžete <a href="/Download/GymVod.Battleships.Common.zip">stáhnout zde</a>.
     Jméno rozhraní je <strong>GymVod.Battleships.Common.@nameof(IBattleshipsGame)</strong> a vypadá následovně:
-    <ul>
-        <li>
+</p>
+<ul>
+    <li>
+        <p>
             Metodu <strong>@nameof(IBattleshipsGame.NewGame)</strong> zavolá herní engine vždy při začátku nové hry.
             Účelem je rozmístění lodí, inicializace potřebných polí apod. Metoda je zavolána s argumentem typu @nameof(GameSettings),
-            kde je určena velikost hracího pole a typy lodí, které máte rozmístit.
-        </li>
-        <li>
-            Metodu <strong>@nameof(IBattleshipsGame.GetNextShotPosition)</strong> engine zavolá na začátku vašeho kola.
-            Vaším úkolem je určit, kam chcete vystřelit. Metoda vrací datový typ @nameof(Position) s umístěním střely (souřadnice X, Y), indexováno od 0.
-            Tzn. [0,0] znamená levý horní roh. <em>Lodě se nesmí dotýkat okraje.</em>
-        </li>
-        <li>
-            Metodu <strong>@nameof(IBattleshipsGame.ShotResult)</strong> zavolá herní engine po vyhodnocení, zda vaše střela zasáhla nepřátelskou loď, a případně, zda ji potopila.
-            Tuto informaci využijete pro určení střelby v dalších kolech.
-        </li>
-    </ul>
-</p>
+            kde je určena <strong>výška a šířka hracího pole</strong> a <strong>typy lodí</strong>, které máte rozmístit.
+        </p>
+        <p>
+            Pro zjednodušení jsou všechny lodě pouze "rovné" o délce 1 - 5, žádná loď není "do L". Každý typ lodě může být zadán vícekrát (typicky menší lodě). 
+            Možné typy lodí jsou:
+            <ul>
+                <li><strong>@nameof(ShipType.Submarine)</strong> - loď o délce @((int)ShipType.Submarine)</li>
+                <li><strong>@nameof(ShipType.Destroyer)</strong> - loď o délce @((int)ShipType.Destroyer)</li>
+                <li><strong>@nameof(ShipType.Cruiser)</strong> - loď o délce @((int)ShipType.Cruiser)</li>
+                <li><strong>@nameof(ShipType.Battleship)</strong> - loď o délce @((int)ShipType.Battleship)</li>
+                <li><strong>@nameof(ShipType.Carrier)</strong> - loď o délce @((int)ShipType.Carrier)</li>
+            </ul>
+        </p>
+    </li>
+    <li>
+        Metodu <strong>@nameof(IBattleshipsGame.GetNextShotPosition)</strong> engine zavolá na začátku vašeho kola.
+        Vaším úkolem je určit, kam chcete vystřelit a vrátit datový typ @nameof(Position) s umístěním střely (souřadnice X, Y), indexováno od 0.
+        Tzn. [0,0] znamená levý horní roh. <em>Lodě se nesmí dotýkat okraje.</em>
+    </li>
+    <li>
+        Metodu <strong>@nameof(IBattleshipsGame.ShotResult)</strong> zavolá herní engine po vyhodnocení, zda vaše střela zasáhla nepřátelskou loď, a případně, zda ji potopila.
+        Tuto informaci využijete pro určení střelby v dalších kolech.
+    </li>
+</ul>
 
 <h4>Pravidla hry</h4>
 <p>
     Věřím, že hru všichni znáte, ale pro jistotu pravidla uvádím níže (můžou se drobně lišit od těch, které znáte).
 
     <ul>
-        <li>Nejdříve oba hráči rozmístí své lodě do herního plánu a oznámí své rozmístění hernímu enginu. 
-            <em>Jak velký je herní plán a kolik jakách lodí máte rozmístit je dáno v argumentu metody.</em></li>
-        <li>Začíná první hráč (v každém turnaji se pořadí střídá, takže nikdo nebude mít výhodu prvního výstřelu) a určí, kam chce vystřelit.</li>
+        <li>
+            Nejdříve oba hráči rozmístí své lodě do herního plánu a oznámí své rozmístění hernímu enginu.
+            <em>Jak velký je herní plán a kolik jakách lodí máte rozmístit je dáno v argumentu metody.</em>
+        </li>
+        <li>Začíná první hráč <em>(v každém turnaji se pořadí vždy střídá, takže nikdo nebude mít výhodu prvního výstřelu)</em> a určí, kam chce vystřelit.</li>
         <li>Herní engine určí, zda jste zasáhli nepřátelskou loď a v případě, že ano, zkontroluje, zda jste ji potopili.</li>
         <li>Herní engine oznámí prvnímu hráči, zda zasáhl (a potopil) nepřátelskou loď.</li>
         <li>Pokud všechny lodě jsou již potopené, první hráč vyhrál a hra končí.</li>
-        <li>V opačném případě hraje druhý hráč, dokud jeden z hráčů nepotopí všechny nepřátelské lodě. 
+        <li>
+            V opačném případě hraje druhý hráč, dokud jeden z hráčů nepotopí všechny nepřátelské lodě.
             <em>Explicitně upozorňuji na odchylku od běžných pravidel, že po zásahu nepokračuje hráč, který zasáhl, ale následuje druhý hráč.</em>
         </li>
     </ul>
@@ -55,8 +71,11 @@
         <li>V případě, že rozmístění lodí při začátku hry není dle pravidel, hráč automaticky prohrává.</li>
         <li>V případě, že střela je mimo hranice hracího pole, hráč automaticky prohrává.</li>
         <li>Pokud ve Vaší metodě vznikne neošetřená výjimka, hráč automaticky prohrává.</li>
-        <li>Všechny Vaše metody by měly doběhnout do 1s. 
-            Momentálně na to není implementována žádná kontrola, ale pokud s tím bude problém, hráč automaticky prohraje, pokud vaše metoda poběží příliš dlouho.</li>
+        <li>
+            Všechny Vaše metody by měly doběhnout do 1s.
+            Momentálně na to není implementována žádná kontrola, ale pokud s tím bude problém, hráč automaticky prohraje, pokud vaše metoda poběží příliš dlouho.
+        </li>
+        <li>Neměli byste se pokoušet žádným způsobem měnit ani přistupovat k žádným hodnotám v paměti, ani jinak ovlivňovat jiný kód, než pouze Vaši knihovnu.</li>
     </ul>
 </p>
 
