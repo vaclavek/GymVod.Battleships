@@ -32,7 +32,7 @@ namespace GymVod.Battleships.Services.GameServer
                         throw new GameOverException($"Nelze umístit loď {ship.ShipType} na pozici [{x},{y}], protože loď se nesmí dotýkat okraje herního pole.");
                     }
 
-                    if (x < 0 || y > 0 || x >= boardWidth || y >= boardHeight)
+                    if (x < 0 || y < 0 || x >= boardWidth || y >= boardHeight)
                     {
                         throw new GameOverException($"Nelze umístit loď {ship.ShipType} na pozici [{x},{y}], protože pozice je mimo hrací pole.");
                     }
