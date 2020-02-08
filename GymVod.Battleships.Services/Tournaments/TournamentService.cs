@@ -19,7 +19,7 @@ namespace GymVod.Battleships.Services.Tournaments
         private readonly IPlayerRepository playerRepository;
         private readonly IPluginLoader pluginLoader;
         private readonly IUnitOfWork unitOfWork;
-        private readonly GameSettings gameSettings = new GameSettings(15, 15, new ShipType[]
+        private readonly GameSettings gameSettings = new GameSettings(20, 20, new ShipType[]
         {
             ShipType.Carrier,                       // 1x
             ShipType.Battleship,                    // 1x
