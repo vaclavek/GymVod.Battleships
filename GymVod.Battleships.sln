@@ -9,11 +9,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GymVod.Battleships.Hrac1", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GymVod.Battleships.HracRnd", "GymVod.Battleships.HracRnd\GymVod.Battleships.HracRnd.csproj", "{98E48E08-4F76-4ACF-A9E8-BA75CF70EA3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymVod.Battleships.Web", "GymVod.Battleships.Web\GymVod.Battleships.Web.csproj", "{AD5F91C2-94AD-4876-BDED-8F081D01BDD2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GymVod.Battleships.Web", "GymVod.Battleships.Web\GymVod.Battleships.Web.csproj", "{AD5F91C2-94AD-4876-BDED-8F081D01BDD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymVod.Battleships.Services", "GymVod.Battleships.Services\GymVod.Battleships.Services.csproj", "{8169CCB5-99EF-4AA1-8815-25021219873A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GymVod.Battleships.Services", "GymVod.Battleships.Services\GymVod.Battleships.Services.csproj", "{8169CCB5-99EF-4AA1-8815-25021219873A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymVod.Battleships.DataLayer", "GymVod.Battleships.DataLayer\GymVod.Battleships.DataLayer.csproj", "{585AF0B5-D117-4D4D-B3D3-BD3FBAE53293}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GymVod.Battleships.DataLayer", "GymVod.Battleships.DataLayer\GymVod.Battleships.DataLayer.csproj", "{585AF0B5-D117-4D4D-B3D3-BD3FBAE53293}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution files", "Solution files", "{92E7AE19-E9B4-4753-B0C4-82632B87B8AC}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
