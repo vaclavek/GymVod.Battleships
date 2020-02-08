@@ -21,11 +21,11 @@ namespace GymVod.Battleships.Web.Components.Pages
         [Inject]
         protected IToaster Toaster { get; set; }
 
-        public async Task HandleValidSubmit()
+        public async Task HandleValidSubmitAsync()
         {
             var league = (League)Convert.ToInt32(Model.League);
             var games = await TournamentService.NewTournamentAsync(league);
-            await TournamentService.InsertNewTournament(league, games);
+            await TournamentService.InsertNewTournamentAsync(league, games);
 
             Toaster.Info("Turnaj byl odehrán.");
             NavigationManager.NavigateTo("/tournaments");

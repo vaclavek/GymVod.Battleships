@@ -58,7 +58,7 @@ namespace GymVod.Battleships.Web.Components.Pages
             SetOkDisabledStatus();
         }
 
-        public async Task HandleValidSubmit()
+        public async Task HandleValidSubmitAsync()
         {
             await FileUploadService.UploadAsync(file, Model.FileGuid);
 

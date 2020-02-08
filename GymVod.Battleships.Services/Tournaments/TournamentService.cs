@@ -67,7 +67,7 @@ namespace GymVod.Battleships.Services.Tournaments
             return games;
         }
 
-        public async Task InsertNewTournament(League league, List<Game> games)
+        public async Task InsertNewTournamentAsync(League league, List<Game> games)
         {
             var tournament = new Tournament
             {

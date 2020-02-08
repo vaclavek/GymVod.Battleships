@@ -13,7 +13,7 @@ namespace GymVod.Battleships.Services.GameServer
             this.playerRepository = playerRepository;
         }
 
-        public async Task LoadPlugins()
+        public async Task LoadPluginsAsync()
         {
             var players = await playerRepository.GetAllPlayersAsync();
             players.Select(x => x.FileGuid);

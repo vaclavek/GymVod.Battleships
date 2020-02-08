@@ -9,6 +9,6 @@ namespace GymVod.Battleships.Services.Tournaments
     {
         Task<List<TournamentListVM>> GetAllTournamentsAsync();
         Task<List<GameServer.Game>> NewTournamentAsync(League league);
-        Task InsertNewTournament(League league, List<GameServer.Game> games);
+        Task InsertNewTournamentAsync(League league, List<GameServer.Game> games);
     }
 }
