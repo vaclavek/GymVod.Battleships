@@ -22,6 +22,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution files", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymVod.Battleships.Tests", "GymVod.Battleships.Tests\GymVod.Battleships.Tests.csproj", "{0B3367D7-04A1-4BC3-931E-7AEEF3AD8BDD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +54,10 @@ Global
 		{585AF0B5-D117-4D4D-B3D3-BD3FBAE53293}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{585AF0B5-D117-4D4D-B3D3-BD3FBAE53293}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{585AF0B5-D117-4D4D-B3D3-BD3FBAE53293}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B3367D7-04A1-4BC3-931E-7AEEF3AD8BDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B3367D7-04A1-4BC3-931E-7AEEF3AD8BDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B3367D7-04A1-4BC3-931E-7AEEF3AD8BDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B3367D7-04A1-4BC3-931E-7AEEF3AD8BDD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
