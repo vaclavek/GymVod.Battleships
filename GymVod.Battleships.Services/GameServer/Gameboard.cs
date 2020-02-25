@@ -37,6 +37,31 @@ namespace GymVod.Battleships.Services.GameServer
                         throw new GameOverException($"Nelze umístit loď {ship.ShipType} na pozici [{x},{y}], protože pozice je mimo hrací pole.");
                     }
 
+                    if (ShipsBoard[x, y] != null)
+                    {
+                        throw new GameOverException($"Nelze umístit loď {ship.ShipType} na pozici [{x},{y}], protože tato pozice je již obsazena.");
+                    }
+
+                    if (ShipsBoard[x - 1, y] != null && ShipsBoard[x - 1, y] != newBoat)
+                    {
+                        throw new GameOverException($"Nelze umístit loď {ship.ShipType} na pozici [{x},{y}], protože by se vlevo dotýkala jiné lodě.");
+                    }
+
+                    if (ShipsBoard[x + 1, y] != null && ShipsBoard[x + 1, y] != newBoat)
+                    {
+                        throw new GameOverException($"Nelze umístit loď {ship.ShipType} na pozici [{x},{y}], protože by se vpravo dotýkala jiné lodě.");
+                    }
+
+                    if (ShipsBoard[x, y - 1] != null && ShipsBoard[x, y - 1] != newBoat)
+                    {
+                        throw new GameOverException($"Nelze umístit loď {ship.ShipType} na pozici [{x},{y}], protože by se nahoře dotýkala jiné lodě.");
+                    }
+
+                    if (ShipsBoard[x, y + 1] != null && ShipsBoard[x, y + 1] != newBoat)
+                    {
+                        throw new GameOverException($"Nelze umístit loď {ship.ShipType} na pozici [{x},{y}], protože by se dole dotýkala jiné lodě.");
+                    }
+
                     ShipsBoard[x, y] = newBoat;
 
                     switch (ship.Orientation)

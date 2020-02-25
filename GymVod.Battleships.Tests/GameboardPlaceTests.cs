@@ -45,7 +45,7 @@ namespace GymVod.Battleships.Tests
 
         [TestMethod]
         [ExpectedException(typeof(GameOverException))]
-        public void GameboardTest_ShipsCannotBeTouchBoardInTop()
+        public void GameboardTest_ShipsCannotTouchBoardInTop()
         {
             // arrange
             ShipPosition[] s1 =
@@ -63,7 +63,7 @@ namespace GymVod.Battleships.Tests
 
         [TestMethod]
         [ExpectedException(typeof(GameOverException))]
-        public void GameboardTest_ShipsCannotBeTouchBoardInRight()
+        public void GameboardTest_ShipsCannotTouchBoardInRight()
         {
             // arrange
             ShipPosition[] s1 =
@@ -81,7 +81,7 @@ namespace GymVod.Battleships.Tests
 
         [TestMethod]
         [ExpectedException(typeof(GameOverException))]
-        public void GameboardTest_ShipsCannotBeTouchBoardInBottom()
+        public void GameboardTest_ShipsCannotTouchBoardInBottom()
         {
             // arrange
             ShipPosition[] s1 =
@@ -99,7 +99,7 @@ namespace GymVod.Battleships.Tests
 
         [TestMethod]
         [ExpectedException(typeof(GameOverException))]
-        public void GameboardTest_ShipsCannotBeTouchBoardInLeft()
+        public void GameboardTest_ShipsCannotTouchBoardInLeft()
         {
             // arrange
             ShipPosition[] s1 =
@@ -174,7 +174,7 @@ namespace GymVod.Battleships.Tests
 
         [TestMethod]
         [ExpectedException(typeof(GameOverException))]
-        public void GameboardTest_ShipsCannotTouchRight()
+        public void GameboardTest_ShipsCannotTouchEachOtherRight()
         {
             // arrange
             ShipPosition[] s1 =
@@ -193,7 +193,7 @@ namespace GymVod.Battleships.Tests
 
         [TestMethod]
         [ExpectedException(typeof(GameOverException))]
-        public void GameboardTest_ShipsCannotTouchDown()
+        public void GameboardTest_ShipsCannotTouchEachOtherDown()
         {
             // arrange
             ShipPosition[] s1 =

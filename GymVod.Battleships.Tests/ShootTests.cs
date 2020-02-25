@@ -7,9 +7,34 @@ namespace GymVod.Battleships.Tests
     [TestClass]
     public class ShootTests
     {
+        [TestMethod]
+        [ExpectedException(typeof(GameOverException))]
+        public void ShootTest_ShootCannotBeOutsideBoardRight()
+        {
+            // arrange
+            Gameboard gb1 = new Gameboard(10, 10);
+
+            // act
+            gb1.Shoot(new Position(10, 1));
+
+            // assert (exception is thrown)
+        }
 
         [TestMethod]
-        public void GameboardTest_DestroyerSunk()
+        [ExpectedException(typeof(GameOverException))]
+        public void ShootTest_ShootCannotBeOutsideBoardDown()
+        {
+            // arrange
+            Gameboard gb1 = new Gameboard(10, 10);
+
+            // act
+            gb1.Shoot(new Position(1, 10));
+
+            // assert (exception is thrown)
+        }
+
+        [TestMethod]
+        public void ShootTest_DestroyerSunk()
         {
             // arrange
             ShipPosition[] s1 =
@@ -33,7 +58,7 @@ namespace GymVod.Battleships.Tests
         }
 
         [TestMethod]
-        public void GameboardTest_UserHasLost()
+        public void ShootTest_UserHasLost()
         {
             // arrange
             ShipPosition[] s1 =
