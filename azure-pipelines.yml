@@ -34,7 +34,7 @@ steps:
   inputs:
     testSelector: 'testAssemblies'
     testAssemblyVer2: |
-      **\YYY.*.Tests.dll
+      **\GymVod.*.Tests.dll
       !**\obj\**
     searchFolder: '$(System.DefaultWorkingDirectory)'
     platform: '$(buildPlatform)'
