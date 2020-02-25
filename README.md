@@ -1,6 +1,6 @@
 ﻿# Pololetní projekt GymVod 2019/2020
 
-Stav nasazení: 
+ [![Stav nasazení](https://dev.azure.com/ondrejvaclavek/GymVod.Battleships/_apis/build/status/GymVod.Battleships?branchName=master)](https://dev.azure.com/ondrejvaclavek/GymVod.Battleships/_build/latest?definitionId=2&branchName=master)
 
 Tato aplikace slouží jako podpora pro Vaše pololetní projekty.
 Vaším cílem je naprogramovat knihovnu (DLL), která bude implementovat předepsané rozhraní na známou hru lodě.
