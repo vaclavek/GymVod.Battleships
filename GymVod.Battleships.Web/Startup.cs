@@ -53,7 +53,7 @@ namespace GymVod.Battleships.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, MyContext context)
         {
             if (env.IsDevelopment())
             {
@@ -76,6 +76,9 @@ namespace GymVod.Battleships.Web
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
+
+            // automatically create/migrate database
+            context.Database.Migrate();
         }
 
         private void RegisterDependencyInjectionServices(IServiceCollection services)
