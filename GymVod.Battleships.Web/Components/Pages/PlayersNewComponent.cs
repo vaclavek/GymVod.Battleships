@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using BlazorInputFile;
 using GymVod.Battleships.DataLayer.Model;
@@ -62,20 +63,10 @@ namespace GymVod.Battleships.Web.Components.Pages
         {
             await FileUploadService.UploadAsync(file, Model.FileGuid);
 
-            var plugin = PluginTester.LoadPlugin(Model.FileGuid);
-            if (plugin == null)
-            {
-                Toaster.Error("Vložený soubor není platná knihovna.");
-                return;
-            }
+            bool isValid = IsAssemblyValid();
 
-            try
+            if (!isValid)
             {
-                PluginTester.TestImplementation(plugin);
-            }
-            catch (Exception e)
-            {
-                Toaster.Error(e.Message, "Chyba implementace");
                 return;
             }
 
@@ -89,6 +80,32 @@ namespace GymVod.Battleships.Web.Components.Pages
 
             Toaster.Info("Nový hráč vložen.");
             NavigationManager.NavigateTo("/players");
+        }
+
+        private bool IsAssemblyValid()
+        {
+            Assembly plugin;
+            try
+            {
+                plugin = PluginTester.LoadPlugin(Model.FileGuid);
+            }
+            catch (Exception e)
+            {
+                Toaster.Error($"Vložený soubor není platná knihovna. ({e.Message})");
+                return false;
+            }
+
+            try
+            {
+                PluginTester.TestImplementation(plugin);
+            }
+            catch (Exception e)
+            {
+                Toaster.Error(e.Message, "Chyba implementace");
+                return false;
+            }
+
+            return true;
         }
 
         private void EditContext_OnFieldChanged(object sender, FieldChangedEventArgs e)

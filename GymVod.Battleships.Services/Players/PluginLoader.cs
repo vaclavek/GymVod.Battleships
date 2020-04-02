@@ -22,15 +22,7 @@ namespace GymVod.Battleships.Services.Players
         public Assembly LoadPlugin(Guid fileGuid)
         {
             var path = Path.Combine("Upload", $"{fileGuid}.dll");
-            try
-            {
-                return Assembly.LoadFrom(path);
-            }
-            catch
-            {
-                // swallow exception
-                return null;
-            }
+            return Assembly.LoadFrom(path);
         }
 
         public IBattleshipsGame GetInstance(Assembly assembly)

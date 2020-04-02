@@ -40,22 +40,16 @@ namespace GymVod.Battleships.Services.Tournaments
             this.unitOfWork = unitOfWork;
         }
 
-        public async Task<List<TournamentListVM>> GetAllTournamentsAsync()
+        public async Task<List<TournamentListVM>> GetAllTournamentsListAsync()
         {
             var tournaments = await tournamentRepository.GetAllTournamentsAsync();
-            return tournaments.Select(x => new TournamentListVM
-            {
-                Created = x.Created,
-                League = x.League,
-                Games = new List<TournamentGameListVM>(x.Games.Select(y => new TournamentGameListVM
-                {
-                    Player1Name = y.Player1.Name,
-                    Player2Name = y.Player2.Name,
-                    RoundsCount = y.RoundsCount,
-                    WhichPlayerWins = y.WhichPlayerWins,
-                    ErrorMessage = y.ErrorMessage
-                }))
-            }).ToList();
+            return tournaments.Select(x => GetListViewModel(x)).ToList();
+        }
+
+        public async Task<TournamentResultVM> GetTournamentResultByIdAsync(int tournamentId)
+        {
+            var tournament = await tournamentRepository.GetTournamentByIdAsync(tournamentId);
+            return GetResultViewModel(tournament);
         }
 
         public async Task<List<Game>> NewTournamentAsync(League league)
@@ -64,6 +58,7 @@ namespace GymVod.Battleships.Services.Tournaments
             var games = GetGames(competitors);
 
             RunGames(games);
+
             return games;
         }
 
@@ -87,6 +82,62 @@ namespace GymVod.Battleships.Services.Tournaments
 
             unitOfWork.AddForInsert(tournament);
             await unitOfWork.CommitAsync();
+        }
+
+        private TournamentResultVM GetResultViewModel(Tournament tournament)
+        {
+            return new TournamentResultVM
+            {
+                Id = tournament.Id,
+                Created = tournament.Created,
+                League = tournament.League,
+                Games = new List<TournamentGameListVM>(tournament.Games.Select(y => new TournamentGameListVM
+                {
+                    Player1Name = y.Player1.Name,
+                    Player2Name = y.Player2.Name,
+                    RoundsCount = y.RoundsCount,
+                    WhichPlayerWins = y.WhichPlayerWins,
+                    ErrorMessage = y.ErrorMessage
+                }))
+            };
+        }
+
+        private TournamentListVM GetListViewModel(Tournament tournament)
+        {
+            var returnTournament = new TournamentListVM
+            {
+                Id = tournament.Id,
+                Created = tournament.Created,
+                League = tournament.League,
+                GamesCount = tournament.Games.Count
+            };
+
+            var players = tournament.Games.Select(x =>
+            {
+                if (x.WhichPlayerWins == WhichPlayerWins.Player1)
+                {
+                    return x.Player1;
+                }
+                if (x.WhichPlayerWins == WhichPlayerWins.Player2)
+                {
+                    return x.Player2;
+                }
+                return null;
+            });
+
+            var a = players
+                .Where(x => x != null)
+                .GroupBy(x => x)
+                .Select(y => new { Player = y.Key, WonGamesCount = y.Count() });
+
+            returnTournament.Players = a.OrderByDescending(x => x.WonGamesCount).Select((x, i) => new TournamentListPlayerVM
+            {
+                Name = x.Player.Name,
+                WonGamesCount = x.WonGamesCount,
+                Position = i
+            }).ToList();
+
+            return returnTournament;
         }
 
         private async Task<Dictionary<int, IBattleshipsGame>> GetCompetitorsAsync(League league)

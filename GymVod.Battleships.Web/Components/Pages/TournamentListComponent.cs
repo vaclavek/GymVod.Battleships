@@ -16,7 +16,24 @@ namespace GymVod.Battleships.Web.Components.Pages
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
-            Tournaments = await TournamentService.GetAllTournamentsAsync();
+            Tournaments = await TournamentService.GetAllTournamentsListAsync();
+        }
+
+        protected string GetCssClass(TournamentListPlayerVM player)
+        {
+            if (player.Position == 0)
+            {
+                return "table-success";
+            }
+            if (player.Position == 1)
+            {
+                return "table-warning";
+            }
+            if (player.Position == 2)
+            {
+                return "table-danger";
+            }
+            return "table-primary";
         }
     }
 }

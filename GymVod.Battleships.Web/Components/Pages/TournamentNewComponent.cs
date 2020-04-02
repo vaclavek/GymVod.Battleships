@@ -24,8 +24,17 @@ namespace GymVod.Battleships.Web.Components.Pages
         public async Task HandleValidSubmitAsync()
         {
             var league = (League)Convert.ToInt32(Model.League);
-            var games = await TournamentService.NewTournamentAsync(league);
-            await TournamentService.InsertNewTournamentAsync(league, games);
+            try
+            {
+                var games = await TournamentService.NewTournamentAsync(league);
+                await TournamentService.InsertNewTournamentAsync(league, games);
+            }
+            catch (Exception e)
+            {
+                Toaster.Error(e.Message);
+                NavigationManager.NavigateTo("/tournaments");
+                return;
+            }
 
             Toaster.Info("Turnaj byl odehrán.");
             NavigationManager.NavigateTo("/tournaments");
