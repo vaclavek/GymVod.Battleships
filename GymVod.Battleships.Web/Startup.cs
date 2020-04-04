@@ -87,19 +87,19 @@ namespace GymVod.Battleships.Web
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             // uow, dbcontext
-            services.AddScoped<MyContext, MyContext>();
-            services.AddScoped<DbContext, MyContext>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<MyContext, MyContext>();
+            services.AddTransient<DbContext, MyContext>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             // repositories
-            services.AddScoped<IPlayerRepository, PlayerRepository>();
-            services.AddScoped<ITournamentRepository, TournamentRepository>();
+            services.AddTransient<IPlayerRepository, PlayerRepository>();
+            services.AddTransient<ITournamentRepository, TournamentRepository>();
 
             // services
-            services.AddScoped<IFileService, FileService>();
-            services.AddScoped<IPlayerService, PlayerService>();
-            services.AddScoped<IPluginLoader, PluginLoader>();
-            services.AddScoped<ITournamentService, TournamentService>();
+            services.AddTransient<IFileService, FileService>();
+            services.AddTransient<IPlayerService, PlayerService>();
+            services.AddTransient<IPluginLoader, PluginLoader>();
+            services.AddTransient<ITournamentService, TournamentService>();
         }
     }
 }
