@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Runtime.Loader;
 using System.Threading.Tasks;
 using BlazorInputFile;
 using GymVod.Battleships.DataLayer.Model;
 using GymVod.Battleships.Services;
+using GymVod.Battleships.Services.Infrastructure;
 using GymVod.Battleships.Services.Players;
 using GymVod.Battleships.Services.Players.ViewModels;
 using GymVod.Battleships.Web.Components.Pages.ViewModels;
@@ -82,27 +85,36 @@ namespace GymVod.Battleships.Web.Components.Pages
             NavigationManager.NavigateTo("/players");
         }
 
+        [MethodImpl(MethodImplOptions.NoInlining)]
         private bool IsAssemblyValid()
         {
-            Assembly plugin;
+            AssemblyLoadContext assemblyLoadContext = new CollectibleAssemblyLoadContext();
             try
             {
-                plugin = PluginTester.LoadPlugin(Model.FileGuid);
-            }
-            catch (Exception e)
-            {
-                Toaster.Error($"Vložený soubor není platná knihovna. ({e.Message})");
-                return false;
-            }
+                Assembly plugin;
+                try
+                {
+                    plugin = PluginTester.LoadPlugin(assemblyLoadContext, Model.FileGuid);
+                }
+                catch (Exception e)
+                {
+                    Toaster.Error($"Vložený soubor není platná knihovna. ({e.Message})");
+                    return false;
+                }
 
-            try
-            {
-                PluginTester.TestImplementation(plugin);
+                try
+                {
+                    PluginTester.TestImplementation(plugin);
+                }
+                catch (Exception e)
+                {
+                    Toaster.Error(e.Message, "Chyba implementace");
+                    return false;
+                }
             }
-            catch (Exception e)
+            finally
             {
-                Toaster.Error(e.Message, "Chyba implementace");
-                return false;
+                assemblyLoadContext.Unload();
             }
 
             return true;

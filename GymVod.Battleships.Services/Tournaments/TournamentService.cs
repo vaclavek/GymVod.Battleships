@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Runtime.Loader;
 using System.Threading.Tasks;
 using GymVod.Battleships.Common;
 using GymVod.Battleships.DataLayer;
@@ -7,6 +9,7 @@ using GymVod.Battleships.DataLayer.Model;
 using GymVod.Battleships.DataLayer.Repositories;
 using GymVod.Battleships.DataLayer.UnitOfWorks;
 using GymVod.Battleships.Services.GameServer;
+using GymVod.Battleships.Services.Infrastructure;
 using GymVod.Battleships.Services.Players;
 using GymVod.Battleships.Services.Tournaments.ViewModels;
 using Game = GymVod.Battleships.Services.GameServer.Game;
@@ -52,10 +55,15 @@ namespace GymVod.Battleships.Services.Tournaments
             return GetResultViewModel(tournament);
         }
 
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public async Task<List<Game>> NewTournamentAsync(League league)
         {
-            var competitors = await GetCompetitorsAsync(league);
+            var context = new CollectibleAssemblyLoadContext();
+
+            var competitors = await GetCompetitorsAsync(context, league);
             var games = GetGames(competitors);
+
+            context.Unload();
 
             RunGames(games);
 
@@ -140,7 +148,7 @@ namespace GymVod.Battleships.Services.Tournaments
             return returnTournament;
         }
 
-        private async Task<Dictionary<int, IBattleshipsGame>> GetCompetitorsAsync(League league)
+        private async Task<Dictionary<int, IBattleshipsGame>> GetCompetitorsAsync(AssemblyLoadContext assemblyLoadContext, League league)
         {
             var players = (await playerRepository.GetAllPlayersAsync())
                             .Where(x => x.League == league)
@@ -149,7 +157,7 @@ namespace GymVod.Battleships.Services.Tournaments
             var competitors = new Dictionary<int, IBattleshipsGame>();
             foreach (var player in players)
             {
-                var pluginAssembly = pluginLoader.LoadPlugin(player.Key);
+                var pluginAssembly = pluginLoader.LoadPlugin(assemblyLoadContext, player.Key);
                 var instance = pluginLoader.GetInstance(pluginAssembly);
                 competitors.Add(player.Value.Id, instance);
             }

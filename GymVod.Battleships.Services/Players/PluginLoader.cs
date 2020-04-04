@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Loader;
 using GymVod.Battleships.Common;
 
 namespace GymVod.Battleships.Services.Players
@@ -19,10 +20,13 @@ namespace GymVod.Battleships.Services.Players
             return TryCreateInstance(implementationType) != null;
         }
 
-        public Assembly LoadPlugin(Guid fileGuid)
+        public Assembly LoadPlugin(AssemblyLoadContext assemblyLoadContext, Guid fileGuid)
         {
             var path = Path.Combine("Upload", $"{fileGuid}.dll");
-            return Assembly.LoadFrom(path);
+            using (var fs = new FileStream(path, FileMode.Open, FileAccess.Read))
+            {
+                return assemblyLoadContext.LoadFromStream(fs);
+            }
         }
 
         public IBattleshipsGame GetInstance(Assembly assembly)
@@ -34,7 +38,8 @@ namespace GymVod.Battleships.Services.Players
         private Type GetImplementationType(Assembly assembly)
         {
             var types = assembly.GetTypes();
-            var assignableTypes = types.Where(x => typeof(IBattleshipsGame).IsAssignableFrom(x));
+            var assignableTypes = types.Where(x => !x.IsAbstract
+                                            && typeof(IBattleshipsGame).IsAssignableFrom(x));
 
             if (assignableTypes.Count() == 1)
             {
