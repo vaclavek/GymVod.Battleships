@@ -21,15 +21,15 @@ namespace GymVod.Battleships.Web.Components.Pages
 
         protected string GetCssClass(TournamentListPlayerVM player)
         {
-            if (player.Position == 0)
+            if (player.Position == 1)
             {
                 return "table-success";
             }
-            if (player.Position == 1)
+            if (player.Position == 2)
             {
                 return "table-warning";
             }
-            if (player.Position == 2)
+            if (player.Position == 3)
             {
                 return "table-danger";
             }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using GymVod.Battleships.DataLayer.Model;
 using GymVod.Battleships.Services.Tournaments.ViewModels;
@@ -7,6 +8,8 @@ namespace GymVod.Battleships.Services.Tournaments
 {
     public interface ITournamentService
     {
+        event EventHandler<RunGamesEventArgs> NewGamePlayed;
+
         Task<List<TournamentListVM>> GetAllTournamentsListAsync();
         Task<TournamentResultVM> GetTournamentResultByIdAsync(int tournamentId);
         Task<List<GameServer.Game>> NewTournamentAsync(League league);

@@ -4,6 +4,7 @@ using GymVod.Battleships.DataLayer.Model;
 using GymVod.Battleships.Services.Tournaments;
 using GymVod.Battleships.Web.Components.Pages.ViewModels;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using Sotsera.Blazor.Toaster;
 
 namespace GymVod.Battleships.Web.Components.Pages
@@ -21,9 +22,19 @@ namespace GymVod.Battleships.Web.Components.Pages
         [Inject]
         protected IToaster Toaster { get; set; }
 
+        [Inject]
+        protected IJSRuntime JSRuntime { get; set; }
+
+        public bool IsDisabledButton { get; set; }
+
         public async Task HandleValidSubmitAsync()
         {
+            IsDisabledButton = true;
+            StateHasChanged();
+
             var league = (League)Convert.ToInt32(Model.League);
+
+            TournamentService.NewGamePlayed += NewGamePlayedEvent;
             try
             {
                 var games = await TournamentService.NewTournamentAsync(league);
@@ -38,6 +49,13 @@ namespace GymVod.Battleships.Web.Components.Pages
 
             Toaster.Info("Turnaj byl odehrán.");
             NavigationManager.NavigateTo("/tournaments");
+        }
+
+        private void NewGamePlayedEvent(object sender, RunGamesEventArgs e)
+        {
+            var notificationText = $"Odehráno {e.GamesRunCount} ze {e.GamesTotalCount} her.";
+
+            JSRuntime.InvokeVoidAsync("setNotification", notificationText);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Loader;
@@ -31,6 +32,7 @@ namespace GymVod.Battleships.Services.Tournaments
             ShipType.Submarine, ShipType.Submarine, // 2x
         });
 
+        public event EventHandler<RunGamesEventArgs> NewGamePlayed;
 
         public TournamentService(ITournamentRepository tournamentRepository,
             IPlayerRepository playerRepository,
@@ -142,7 +144,7 @@ namespace GymVod.Battleships.Services.Tournaments
             {
                 Name = x.Player.Name,
                 WonGamesCount = x.WonGamesCount,
-                Position = i
+                Position = (i + 1) // zero based
             }).ToList();
 
             return returnTournament;
@@ -192,8 +194,10 @@ namespace GymVod.Battleships.Services.Tournaments
             return games;
         }
 
-        private static void RunGames(List<Game> games)
+        private void RunGames(List<Game> games)
         {
+            int gamesTotalCount = games.Count;
+            int gamesRunCount = 1;
             foreach (var game in games)
             {
                 var ge = new GameEngine(game);
@@ -203,6 +207,12 @@ namespace GymVod.Battleships.Services.Tournaments
                 {
                     ge.PlayGame();
                 }
+                NewGamePlayed?.Invoke(this, new RunGamesEventArgs
+                {
+                    GamesRunCount = gamesRunCount,
+                    GamesTotalCount = gamesTotalCount
+                });
+                gamesRunCount++;
             }
         }
     }

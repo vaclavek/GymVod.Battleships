@@ -17,5 +17,7 @@
         <ValidationMessage For="@(() => Model.League)"></ValidationMessage>
     </div>
 
-    <button type="submit" class="btn btn-primary">Spustit nový turnaj</button>
+    <button type="submit" class="btn btn-primary" disabled="@IsDisabledButton">Spustit nový turnaj</button>
 </EditForm>
+
+<p><strong id="notification"></strong></p>
